@@ -1,0 +1,1100 @@
+@import "tailwindcss";
+
+/* ============================================================
+   FORCE LIGHT COLOR SCHEME ON ENTIRE DOCUMENT
+   Prevents browser from applying dark-mode styles to native
+   form controls (input, select, checkbox, radio, etc.)
+   ============================================================ */
+:root {
+  color-scheme: light !important;
+}
+
+/* Custom CSS Variables for CPD Academy Theme */
+:root {
+  --background: #ffffff;
+  --foreground: #2D6A4F;
+  --primary: #2D6A4F;
+  --primary-foreground: #ffffff;
+  --secondary: #F8F9FA;
+  --secondary-foreground: #2D6A4F;
+  --accent: #E76F51;
+  --accent-foreground: #ffffff;
+  --destructive: #E76F51;
+  --destructive-foreground: #ffffff;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #2D6A4F;
+  --radius: 0.75rem;
+
+  /* CPD Academy specific color palette - clean green theme */
+  --cpd-green: #2D6A4F;
+  --cpd-green-light: #74C69D;
+  --cpd-orange: #E76F51;
+  --cpd-gold: #E9C46A;
+  --cpd-gray-bg: #F8F9FA;
+  --cpd-gray-text: #717182;
+  --cpd-border-light: rgba(45,106,79,0.1);
+
+  /* Form-specific locked tokens — never change with OS theme */
+  --form-bg: #ffffff;
+  --form-text: #2D6A4F;
+  --form-placeholder: #9ca3af;
+  --form-border: #e2e8f0;
+  --form-border-focus: #2D6A4F;
+  --form-disabled-bg: #F8F9FA;
+  --form-disabled-text: #94a3b8;
+  --form-label: #2D6A4F;
+  --form-check-accent: #2D6A4F;
+  --form-select-arrow: #6b7280;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--cpd-green);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Monaco', 'Cascadia Code', monospace;
+}
+
+/* ============================================================
+   INTENTIONALLY REMOVED: prefers-color-scheme: dark block
+   The app uses a single fixed light theme. If you later want
+   a toggled dark mode, drive it with a .dark class instead.
+   ============================================================ */
+
+/* ============================================================
+   GLOBAL FORM ELEMENT RESET
+   Forces ALL interactive form controls to render consistently
+   in light mode regardless of OS / browser dark-mode setting.
+   ============================================================ */
+input,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="url"],
+input[type="search"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="time"],
+input[type="month"],
+input[type="week"],
+input[type="color"],
+input[type="file"],
+textarea,
+select {
+  color-scheme: light;
+  background-color: var(--form-bg) !important;
+  color: var(--form-text) !important;
+  border-color: var(--form-border);
+  -webkit-text-fill-color: var(--form-text) !important; /* Overrides WebKit autofill darkness */
+}
+
+/* Placeholder text */
+input::placeholder,
+textarea::placeholder {
+  color: var(--form-placeholder) !important;
+  opacity: 1; /* Firefox reduces opacity by default */
+  -webkit-text-fill-color: var(--form-placeholder) !important;
+}
+
+/* Disabled state */
+input:disabled,
+textarea:disabled,
+select:disabled {
+  background-color: var(--form-disabled-bg) !important;
+  color: var(--form-disabled-text) !important;
+  -webkit-text-fill-color: var(--form-disabled-text) !important;
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+/* Focus ring — consistent across themes */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--form-border-focus);
+  outline-offset: 0px;
+  border-color: var(--form-border-focus) !important;
+}
+
+/* ── Checkboxes & Radio buttons ──────────────────────────── */
+input[type="checkbox"],
+input[type="radio"] {
+  color-scheme: light;
+  accent-color: var(--form-check-accent);
+  /* Prevent OS dark-mode from inverting the native control */
+  background-color: var(--form-bg) !important;
+  border-color: var(--form-border) !important;
+}
+
+/* ── Select / Dropdown ───────────────────────────────────── */
+select {
+  color-scheme: light;
+  background-color: var(--form-bg) !important;
+  color: var(--form-text) !important;
+}
+
+/* Option elements inside select */
+select option {
+  background-color: var(--form-bg) !important;
+  color: var(--form-text) !important;
+}
+
+/* ── Labels ──────────────────────────────────────────────── */
+label {
+  color: var(--form-label);
+}
+
+/* ── Autofill (Chrome / Safari) ──────────────────────────── */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--form-bg) inset !important;
+  -webkit-text-fill-color: var(--form-text) !important;
+  caret-color: var(--form-text);
+}
+
+/* ── Number input spin buttons ───────────────────────────── */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  filter: invert(0); /* Keep native appearance light */
+}
+
+/* ── Date / time picker icon (Chrome) ───────────────────── */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="datetime-local"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator,
+input[type="month"]::-webkit-calendar-picker-indicator,
+input[type="week"]::-webkit-calendar-picker-indicator {
+  filter: invert(0);  /* Prevent OS from darkening the calendar icon */
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+/* ── File input button ───────────────────────────────────── */
+input[type="file"]::file-selector-button {
+  background-color: var(--secondary);
+  color: var(--form-text);
+  border: 1px solid var(--form-border);
+  border-radius: calc(var(--radius) - 2px);
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background-color: var(--form-border);
+}
+
+/* ── Range slider ────────────────────────────────────────── */
+input[type="range"] {
+  color-scheme: light;
+  accent-color: var(--form-check-accent);
+}
+
+/* ============================================================
+   RICH TEXT EDITOR  (Quill — .ql-*)
+   ============================================================ */
+.rich-text-editor-wrapper .ql-container {
+  border: none !important;
+  font-size: 0.875rem;
+  min-height: 150px;
+  background-color: var(--form-bg) !important;
+  color: var(--form-text) !important;
+}
+
+.rich-text-editor-wrapper .ql-toolbar {
+  border: none !important;
+  border-bottom: 1px solid var(--form-border) !important;
+  background-color: var(--cpd-gray-bg) !important;
+}
+
+/* Toolbar buttons & icons — keep them visible on light bg */
+.rich-text-editor-wrapper .ql-toolbar .ql-stroke {
+  stroke: #374151 !important;
+}
+
+.rich-text-editor-wrapper .ql-toolbar .ql-fill {
+  fill: #374151 !important;
+}
+
+.rich-text-editor-wrapper .ql-toolbar button:hover .ql-stroke,
+.rich-text-editor-wrapper .ql-toolbar button.ql-active .ql-stroke {
+  stroke: var(--cpd-green) !important;
+}
+
+.rich-text-editor-wrapper .ql-toolbar button:hover .ql-fill,
+.rich-text-editor-wrapper .ql-toolbar button.ql-active .ql-fill {
+  fill: var(--cpd-green) !important;
+}
+
+.rich-text-editor-wrapper .ql-toolbar .ql-picker-label {
+  color: #374151 !important;
+}
+
+.rich-text-editor-wrapper .ql-toolbar .ql-picker-options {
+  background-color: var(--form-bg) !important;
+  border-color: var(--form-border) !important;
+  color: var(--form-text) !important;
+}
+
+.rich-text-editor-wrapper .ql-editor {
+  min-height: 150px;
+  padding: 12px 16px;
+  background-color: var(--form-bg) !important;
+  color: var(--form-text) !important;
+}
+
+.rich-text-editor-wrapper .ql-editor.ql-blank::before {
+  color: var(--form-placeholder) !important;
+  font-style: normal;
+  font-size: 0.875rem;
+}
+
+/* ============================================================
+   CUSTOM UTILITY CLASSES
+   ============================================================ */
+.bg-gradient-hr-primary  { background: var(--cpd-green); }
+.bg-gradient-hr-success  { background: var(--cpd-green-light); }
+.bg-gradient-hr-warning  { background: var(--cpd-gold); }
+.bg-gradient-hr-danger   { background: var(--cpd-orange); }
+
+.text-gradient-hr-primary {
+  background: var(--cpd-green);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Grid pattern */
+.bg-grid-pattern {
+  background-image:
+    linear-gradient(to right, rgba(0,0,0,0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0,0,0,0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Glassmorphism */
+.glass {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.glass-dark {
+  background: rgba(0,0,0,0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Animations */
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 5px rgba(45,106,79,0.5); }
+  50%       { box-shadow: 0 0 20px rgba(45,106,79,0.8), 0 0 30px rgba(45,106,79,0.6); }
+}
+@keyframes loading {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.animate-slide-in-up    { animation: slideInUp 0.3s ease-out; }
+.animate-slide-in-down  { animation: slideInDown 0.3s ease-out; }
+.animate-fade-in-scale  { animation: fadeInScale 0.2s ease-out; }
+.animate-pulse-glow     { animation: pulse-glow 2s infinite; }
+
+/* Card hover */
+.card-hover { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+}
+
+/* Button solid color */
+.btn-gradient {
+  background: var(--cpd-green);
+  border: none;
+  color: white;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px 0 rgba(45,106,79,0.3);
+}
+.btn-gradient:hover  { transform: translateY(-1px); box-shadow: 0 6px 20px 0 rgba(45,106,79,0.4); }
+.btn-gradient:active { transform: translateY(0); }
+
+/* Enhanced input utility class */
+.input-enhanced {
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(10px);
+}
+.input-enhanced:focus {
+  border-color: var(--cpd-green);
+  box-shadow: 0 0 0 3px rgba(45,106,79,0.1);
+  background: rgba(255,255,255,1);
+}
+
+/* Status badges */
+.status-indicator  { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; }
+.status-active     { background-color: rgba(45,106,79,0.1);  color: var(--cpd-green); }
+.status-inactive   { background-color: rgba(231,111,81,0.1);   color: var(--cpd-orange); }
+.status-pending    { background-color: rgba(233,196,106,0.1);  color: var(--cpd-gold); }
+.status-completed  { background-color: rgba(116,198,157,0.1);  color: var(--cpd-green-light); }
+
+/* Skeleton loader — locked to light colours, no dark-mode variant needed */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+/* Sidebar shimmer */
+.sidebar-item { position: relative; overflow: hidden; }
+.sidebar-item::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.5s;
+}
+.sidebar-item:hover::before { left: 100%; }
+
+/* Scrollbars */
+.custom-scrollbar { scrollbar-width: thin; scrollbar-color: rgba(156,163,175,0.5) transparent; }
+.custom-scrollbar::-webkit-scrollbar { width: 6px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background-color: rgba(156,163,175,0.5); border-radius: 3px; }
+.custom-scrollbar::-webkit-scrollbar-thumb:hover { background-color: rgba(156,163,175,0.8); }
+
+.scrollbar-thin { scrollbar-width: thin; }
+.scrollbar-thin::-webkit-scrollbar { height: 4px; width: 4px; }
+.scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+.scrollbar-thumb-gray-300::-webkit-scrollbar-thumb { background-color: rgba(209,213,219,0.5); border-radius: 2px; }
+.scrollbar-thumb-gray-300::-webkit-scrollbar-thumb:hover { background-color: rgba(209,213,219,0.8); }
+.scrollbar-track-transparent::-webkit-scrollbar-track { background: transparent; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .mobile-padding  { padding-left: 1rem; padding-right: 1rem; }
+  .mobile-text-sm  { font-size: 0.875rem; }
+}
+
+/* Print */
+@media print {
+  .no-print { display: none !important; }
+  .print-friendly { background: white !important; color: black !important; box-shadow: none !important; }
+}
+
+/* Accessibility */
+.focus-visible { outline: 2px solid var(--cpd-green); outline-offset: 2px; }
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+/* High contrast */
+@media (prefers-contrast: high) {
+  .card-hover { border: 2px solid currentColor; }
+  .btn-gradient { background: var(--cpd-green); border: 2px solid var(--cpd-green); }
+}
+
+/* ============================================================
+   CPD eLEARNING ENHANCED DESIGN SYSTEM
+   Premium component classes that define the CPD look & feel
+   ============================================================ */
+
+/* ── CPD Section layout ────────────────────────────────────── */
+.cpd-section {
+  padding: 5rem 1.5rem;
+}
+.cpd-section-sm {
+  padding: 3rem 1.5rem;
+}
+.cpd-container {
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── CPD Section header ────────────────────────────────────── */
+.cpd-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cpd-orange);
+  margin-bottom: 0.75rem;
+}
+.cpd-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 1.5rem;
+  height: 2px;
+  background: currentColor;
+  border-radius: 1px;
+}
+
+.cpd-heading {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #1E2F5E;
+}
+.cpd-heading-accent {
+  color: var(--cpd-green);
+  position: relative;
+  display: inline-block;
+}
+.cpd-heading-accent::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--cpd-orange), transparent);
+  border-radius: 2px;
+}
+
+.cpd-subtext {
+  font-size: 0.9375rem;
+  color: var(--cpd-gray-text);
+  line-height: 1.7;
+  max-width: 40rem;
+}
+
+/* ── CPD Cards ─────────────────────────────────────────────── */
+.cpd-card {
+  background: #ffffff;
+  border: 1px solid rgba(30, 47, 94, 0.07);
+  box-shadow: 0 2px 16px -4px rgba(0, 0, 0, 0.06);
+  transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+.cpd-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--cpd-green), var(--cpd-green-light));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.cpd-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px -8px rgba(45, 106, 79, 0.15);
+  border-color: rgba(45, 106, 79, 0.18);
+}
+.cpd-card:hover::before {
+  transform: scaleX(1);
+}
+
+.cpd-card-flat {
+  background: #ffffff;
+  border: 1px solid rgba(30, 47, 94, 0.08);
+  transition: all 0.22s ease;
+}
+.cpd-card-flat:hover {
+  border-color: rgba(45, 106, 79, 0.2);
+  background: rgba(45, 106, 79, 0.02);
+}
+
+/* ── CPD Institution card (horizontal) ─────────────────────── */
+.cpd-inst-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: #ffffff;
+  border: 1.5px solid rgba(30, 47, 94, 0.1);
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 210px;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+.cpd-inst-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--cpd-green);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.cpd-inst-card:hover::after,
+.cpd-inst-card.active::after {
+  transform: scaleX(1);
+}
+.cpd-inst-card:hover {
+  border-color: rgba(45, 106, 79, 0.25);
+  box-shadow: 0 6px 20px -4px rgba(45, 106, 79, 0.15);
+}
+.cpd-inst-card.active {
+  background: var(--cpd-green);
+  border-color: var(--cpd-green);
+  box-shadow: 0 8px 24px -4px rgba(45, 106, 79, 0.3);
+  transform: translateY(-2px);
+}
+
+/* ── CPD Category chip / pill ──────────────────────────────── */
+.cpd-category-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.375rem 0.875rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: #ffffff;
+  border: 1px solid rgba(45, 106, 79, 0.16);
+  color: var(--cpd-green);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+.cpd-category-chip:hover {
+  background: var(--cpd-green);
+  color: #ffffff;
+  border-color: var(--cpd-green);
+  box-shadow: 0 4px 12px -2px rgba(45, 106, 79, 0.25);
+}
+.cpd-category-chip .chip-count {
+  font-size: 0.625rem;
+  padding: 0.125rem 0.4rem;
+  background: rgba(45, 106, 79, 0.12);
+  color: var(--cpd-green);
+  border-radius: 2px;
+  font-weight: 700;
+  transition: all 0.18s ease;
+}
+.cpd-category-chip:hover .chip-count {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+/* ── CPD Stat tile ─────────────────────────────────────────── */
+.cpd-stat {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  position: relative;
+}
+.cpd-stat-value {
+  font-size: 2.25rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--cpd-green);
+  line-height: 1;
+  margin-bottom: 0.375rem;
+}
+.cpd-stat-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--cpd-gray-text);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ── CPD Step card ─────────────────────────────────────────── */
+.cpd-step {
+  position: relative;
+  padding: 2rem;
+  background: #ffffff;
+  border: 1px solid rgba(30, 47, 94, 0.07);
+  overflow: hidden;
+  transition: all 0.28s ease;
+}
+.cpd-step-num {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  font-size: 4rem;
+  font-weight: 900;
+  line-height: 1;
+  opacity: 0.05;
+  pointer-events: none;
+  user-select: none;
+  color: var(--cpd-green);
+}
+.cpd-step:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px -8px rgba(45, 106, 79, 0.12);
+  border-color: rgba(45, 106, 79, 0.15);
+}
+
+/* ── CPD Testimonial card ──────────────────────────────────── */
+.cpd-testimonial {
+  padding: 1.5rem;
+  background: #ffffff;
+  border: 1px solid rgba(30, 47, 94, 0.07);
+  margin-bottom: 1.25rem;
+  transition: all 0.25s ease;
+  position: relative;
+}
+.cpd-testimonial::before {
+  content: '\201C';
+  position: absolute;
+  top: 0.75rem;
+  right: 1.25rem;
+  font-size: 3rem;
+  line-height: 1;
+  color: rgba(45, 106, 79, 0.08);
+  font-family: Georgia, serif;
+  pointer-events: none;
+}
+.cpd-testimonial:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.08);
+  border-color: rgba(45, 106, 79, 0.14);
+}
+
+/* ── CPD Course card ───────────────────────────────────────── */
+.cpd-course-card {
+  background: #ffffff;
+  border: 1px solid rgba(30, 47, 94, 0.08);
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+.cpd-course-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px -10px rgba(45, 106, 79, 0.18);
+  border-color: rgba(45, 106, 79, 0.18);
+}
+.cpd-course-card .course-img-wrap {
+  position: relative;
+  height: 11rem;
+  overflow: hidden;
+  background: var(--cpd-gray-bg);
+}
+.cpd-course-card .course-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.cpd-course-card:hover .course-img-wrap img {
+  transform: scale(1.06);
+}
+.cpd-course-card .course-body {
+  padding: 1rem;
+}
+
+/* ── CPD Nav ───────────────────────────────────────────────── */
+.cpd-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #ffffff;
+  transition: all 0.3s ease;
+}
+.cpd-nav.scrolled {
+  border-bottom: 1px solid rgba(30, 47, 94, 0.09);
+  box-shadow: 0 2px 20px -4px rgba(45, 106, 79, 0.08);
+}
+.cpd-nav-link {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #1E2F5E;
+  position: relative;
+  padding-bottom: 2px;
+  transition: color 0.18s ease;
+}
+.cpd-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--cpd-green);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.22s ease;
+}
+.cpd-nav-link:hover {
+  color: var(--cpd-green);
+}
+.cpd-nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+/* ── CPD Buttons ───────────────────────────────────────────── */
+.cpd-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #ffffff;
+  background: var(--cpd-green);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+.cpd-btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0);
+  transition: background 0.2s ease;
+}
+.cpd-btn-primary:hover {
+  background: #1f4d37;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px -4px rgba(45, 106, 79, 0.4);
+}
+.cpd-btn-primary:active {
+  transform: translateY(0);
+}
+
+.cpd-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--cpd-green);
+  background: transparent;
+  border: 1.5px solid var(--cpd-green);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.cpd-btn-outline:hover {
+  background: var(--cpd-green);
+  color: #ffffff;
+  box-shadow: 0 4px 16px -4px rgba(45, 106, 79, 0.3);
+}
+
+/* ── CPD Badge / Tag ───────────────────────────────────────── */
+.cpd-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.cpd-badge-green {
+  background: rgba(45, 106, 79, 0.1);
+  color: var(--cpd-green);
+}
+.cpd-badge-orange {
+  background: rgba(231, 111, 81, 0.1);
+  color: var(--cpd-orange);
+}
+.cpd-badge-navy {
+  background: rgba(30, 47, 94, 0.08);
+  color: #1E2F5E;
+}
+.cpd-badge-solid-green {
+  background: var(--cpd-green);
+  color: #ffffff;
+}
+.cpd-badge-solid-orange {
+  background: var(--cpd-orange);
+  color: #ffffff;
+}
+.cpd-badge-solid-navy {
+  background: #1E2F5E;
+  color: #ffffff;
+}
+
+/* ── CPD Divider ───────────────────────────────────────────── */
+.cpd-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(30, 47, 94, 0.12), transparent);
+  margin: 0;
+}
+
+/* ── CPD Horizontal scroll ─────────────────────────────────── */
+.cpd-hscroll {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 0.75rem;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(45, 106, 79, 0.25) transparent;
+}
+.cpd-hscroll::-webkit-scrollbar { height: 3px; }
+.cpd-hscroll::-webkit-scrollbar-track { background: transparent; }
+.cpd-hscroll::-webkit-scrollbar-thumb {
+  background-color: rgba(45, 106, 79, 0.25);
+  border-radius: 2px;
+}
+.cpd-hscroll > * { scroll-snap-align: start; }
+
+/* ── CPD Category panel (expanded institution categories) ──── */
+.cpd-categories-panel {
+  background: rgba(45, 106, 79, 0.025);
+  border: 1px solid rgba(45, 106, 79, 0.1);
+  border-top: 3px solid var(--cpd-green);
+  padding: 1.5rem;
+}
+
+/* ── CPD Icon wrapper ──────────────────────────────────────── */
+.cpd-icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.cpd-icon-box-sm { width: 2rem; height: 2rem; }
+.cpd-icon-box-md { width: 2.5rem; height: 2.5rem; }
+.cpd-icon-box-lg { width: 3rem; height: 3rem; }
+.cpd-icon-box-xl { width: 3.5rem; height: 3.5rem; }
+
+/* ── CPD Floating badge (hero) ─────────────────────────────── */
+.cpd-float-badge {
+  position: absolute;
+  background: #ffffff;
+  padding: 0.625rem 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  border: 1px solid rgba(45, 106, 79, 0.1);
+  box-shadow: 0 8px 28px -4px rgba(0, 0, 0, 0.12);
+}
+
+/* ── CPD Stats banner ──────────────────────────────────────── */
+.cpd-stats-banner {
+  background: var(--cpd-green);
+  position: relative;
+  overflow: hidden;
+}
+.cpd-stats-banner::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  right: -10%;
+  width: 50%;
+  height: 160%;
+  background: rgba(116, 198, 157, 0.12);
+  border-radius: 50%;
+  filter: blur(50px);
+  pointer-events: none;
+}
+.cpd-stats-banner::after {
+  content: '';
+  position: absolute;
+  bottom: -20%;
+  left: -5%;
+  width: 35%;
+  height: 120%;
+  background: rgba(231, 111, 81, 0.07);
+  border-radius: 50%;
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+/* ── CPD Footer ────────────────────────────────────────────── */
+.cpd-footer {
+  background: #1E2F5E;
+  color: rgba(255, 255, 255, 0.75);
+  position: relative;
+  overflow: hidden;
+}
+.cpd-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--cpd-green), var(--cpd-green-light), var(--cpd-orange));
+}
+.cpd-footer-link {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.875rem;
+  transition: color 0.18s ease;
+  display: inline-block;
+}
+.cpd-footer-link:hover {
+  color: #ffffff;
+}
+
+/* ── CPD Avatar initials ───────────────────────────────────── */
+.cpd-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  color: #ffffff;
+  background: var(--cpd-green);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+
+/* ── Enhanced keyframe animations ─────────────────────────── */
+@keyframes cpd-float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-6px); }
+}
+@keyframes cpd-float-delayed {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-5px); }
+}
+@keyframes cpd-drift {
+  0%   { transform: translateX(0) translateY(0); }
+  33%  { transform: translateX(8px) translateY(-8px); }
+  66%  { transform: translateX(-4px) translateY(-4px); }
+  100% { transform: translateX(0) translateY(0); }
+}
+@keyframes cpd-shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes cpd-reveal-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes cpd-reveal-scale {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes cpd-slide-right {
+  from { opacity: 0; transform: translateX(-16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes cpd-particle-rise {
+  0%   { opacity: 0; transform: translateY(0) scale(1); }
+  20%  { opacity: 0.8; }
+  80%  { opacity: 0.4; }
+  100% { opacity: 0; transform: translateY(-60px) scale(1.3); }
+}
+
+.animate-cpd-float { animation: cpd-float 3s ease-in-out infinite; }
+.animate-cpd-float-delayed { animation: cpd-float 3s ease-in-out 1.5s infinite; }
+.animate-cpd-drift { animation: cpd-drift 8s ease-in-out infinite; }
+.animate-cpd-reveal-up { animation: cpd-reveal-up 0.5s ease-out both; }
+.animate-cpd-reveal-scale { animation: cpd-reveal-scale 0.4s ease-out both; }
+.animate-cpd-slide-right { animation: cpd-slide-right 0.4s ease-out both; }
+
+/* ── CPD Section background variants ──────────────────────── */
+.cpd-bg-white { background-color: #ffffff; }
+.cpd-bg-gray  { background-color: #F8F9FA; }
+.cpd-bg-green { background-color: var(--cpd-green); }
+.cpd-bg-navy  { background-color: #1E2F5E; }
+
+/* Subtle dot-grid pattern for sections */
+.cpd-bg-dots {
+  background-color: #F8F9FA;
+  background-image: radial-gradient(rgba(30,47,94,0.07) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* ── CPD text utilities ────────────────────────────────────── */
+.cpd-text-navy   { color: #1E2F5E; }
+.cpd-text-green  { color: var(--cpd-green); }
+.cpd-text-orange { color: var(--cpd-orange); }
+.cpd-text-muted  { color: var(--cpd-gray-text); }
+.cpd-text-white  { color: #ffffff; }
+
+/* ── CPD Login specific ────────────────────────────────────── */
+.cpd-login-card {
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(255,255,255,0.1);
+}
+.cpd-login-input {
+  width: 100%;
+  padding: 0.625rem 0.875rem 0.625rem 3rem;
+  font-size: 0.875rem;
+  border: 1.5px solid rgba(30, 47, 94, 0.12);
+  background: #F8F9FA;
+  color: #1E2F5E;
+  transition: all 0.2s ease;
+  outline: none;
+  font-weight: 500;
+}
+.cpd-login-input:focus {
+  border-color: var(--cpd-green);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.08);
+}
+.cpd-login-input::placeholder {
+  color: #9ca3af;
+  font-weight: 400;
+}
+
+/* ── Hero wave decoration ──────────────────────────────────── */
+.cpd-hero-wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  line-height: 0;
+  pointer-events: none;
+}
+
+/* ── CPD tag label (category card top icon container) ──────── */
+.cpd-cat-icon {
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+/* ── Responsive text ───────────────────────────────────────── */
+@media (max-width: 768px) {
+  .cpd-section { padding: 3rem 1rem; }
+  .cpd-section-sm { padding: 2rem 1rem; }
+  .cpd-stat-value { font-size: 1.75rem; }
+}

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+                http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+    <!-- Homepage -->
+    <url>
+        <loc>https://healthcpds.com/</loc>
+        <lastmod>2026-04-09</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+        <image:image>
+            <image:loc>https://healthcpds.com/og-image.jpg</image:loc>
+            <image:title>CPD Academy - Rwanda Health eLearning Platform</image:title>
+            <image:caption>Continuing Professional Development for Healthcare Professionals</image:caption>
+        </image:image>
+    </url>
+
+    <!-- Courses Page -->
+    <url>
+        <loc>https://healthcpds.com/courses</loc>
+        <lastmod>2026-04-09</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.95</priority>
+        <image:image>
+            <image:loc>https://healthcpds.com/og-image.jpg</image:loc>
+            <image:title>CPD Courses for Healthcare Professionals</image:title>
+        </image:image>
+    </url>
+
+    <!-- Institutions Page -->
+    <url>
+        <loc>https://healthcpds.com/institutions</loc>
+        <lastmod>2026-04-09</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- About Page -->
+    <url>
+        <loc>https://healthcpds.com/about</loc>
+        <lastmod>2026-04-09</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Contact Page -->
+    <url>
+        <loc>https://healthcpds.com/contact</loc>
+        <lastmod>2026-04-09</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- FAQ Page -->
+    <url>
+        <loc>https://healthcpds.com/faq</loc>
+        <lastmod>2026-04-09</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <!-- Login Page -->
+    <url>
+        <loc>https://healthcpds.com/login</loc>
+        <lastmod>2026-04-09</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+
+    <!-- Register Page -->
+    <url>
+        <loc>https://healthcpds.com/register</loc>
+        <lastmod>2026-04-09</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+
+</urlset>

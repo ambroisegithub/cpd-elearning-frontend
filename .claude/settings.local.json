@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -E \"\\\\.\\(tsx|ts\\)$\")",
+      "Bash(bash /tmp/show_tree.sh)",
+      "Bash(node -e ':*)"
+    ]
+  }
+}

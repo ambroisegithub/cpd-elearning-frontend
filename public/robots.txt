@@ -1,0 +1,37 @@
+User-agent: *
+Allow: /
+Allow: /courses$
+Allow: /institutions$
+Allow: /about$
+Allow: /contact$
+Allow: /faq$
+Allow: /login$
+Allow: /register$
+
+Disallow: /dashboard/
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /_vercel/
+Disallow: /profile/
+Disallow: /settings/
+
+Sitemap: https://healthcpds.com/sitemap.xml
+Crawl-delay: 1
+Host: https://healthcpds.com
+
+# Block AI training bots
+User-agent: GPTBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
